@@ -12,4 +12,4 @@ mainly includes the dormitory where the student is located and the equipment to 
 description of on-site repair time period.
 
 
-![](https://github.com/Kesling/GMSD/数据流图.png)  
+![](https://github.com/Kesling/GMSD/picture/数据流图.png)  
