@@ -1,9 +1,9 @@
 # GMSD
 学生宿舍维修管理系统
 
-* Framework：Spring3 + Struts2 + Hibernate3\<br>
-* language：Java\<br>
-* IDE：Eclipse\<br>
+* Framework：Spring3 + Struts2 + Hibernate3
+* language：Java
+* IDE：Eclipse
  
 
   This software system can provide a friendly and user-friendly interface for students to report faults on the Internet, and it is also
