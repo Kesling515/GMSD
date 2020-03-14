@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-5-15 21:40:43 by Hibernate Tools 3.5.0.Final -->
+
+<hibernate-mapping>
+    <class name="com.lzs.gmsd.bean.User" table="user_main" catalog="gmsd">
+        <id name="account" type="int">
+            <column name="account" />
+            <generator class="assigned" />
+        </id>
+        <property name="roleId" type="int">
+            <column name="role_id" length="11" />
+        </property>
+        <property name="name" type="java.lang.String">
+            <column name="name" length="20" />
+        </property>
+        <property name="password" type="java.lang.String">
+            <column name="password" length="20" />
+        </property>
+        <property name="isDelete" type="int">
+            <column name="is_delete" length="11" />
+        </property>
+    </class>
+    
+    <query name="byAccount">
+		<![CDATA[ 
+			from User a where a.isDelete = 1 and a.account = ?
+		]]>
+	</query>
+	<query name="byRole">
+		<![CDATA[ 
+			from User a where a.isDelete = 1 and a.roleId = ?
+		]]>
+	</query>
+	<query name="byUserId">
+		<![CDATA[ 
+			from User a where a.isDelete = 1 and a.id = ?
+		]]>
+	</query>
+    
+</hibernate-mapping>

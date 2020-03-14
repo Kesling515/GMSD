@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-6-19 21:05:18 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.lzs.gmsd.bean.Help" table="helpyourself">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="native" />
+        </id>
+        <property name="type" type="java.lang.String">
+            <column name="type" />
+        </property>
+        <property name="question" type="java.lang.String">
+            <column name="question" />
+        </property>
+        <property name="answer" type="java.lang.String">
+            <column name="answer" />
+        </property>
+        <property name="state" type="int">
+            <column name="state" />
+        </property>
+    </class>
+    
+    <query name="byHelpId">
+		<![CDATA[ 
+			from Help a where a.id = ?
+		]]>
+	</query>
+	<query name="byAnswer">
+		<![CDATA[ 
+			from Help a where a.answer = ?
+		]]>
+	</query>
+    
+</hibernate-mapping>

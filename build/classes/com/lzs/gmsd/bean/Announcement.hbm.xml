@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-6-21 20:12:58 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.lzs.gmsd.bean.Announcement" table="announcement">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="native" />
+        </id>
+        <property name="announcer" type="java.lang.String">
+            <column name="announcer" />
+        </property>
+        <property name="content" type="java.lang.String">
+            <column name="content" />
+        </property>
+        <property name="contime" type="java.lang.String">
+            <column name="contime" />
+        </property>
+    </class>
+</hibernate-mapping>

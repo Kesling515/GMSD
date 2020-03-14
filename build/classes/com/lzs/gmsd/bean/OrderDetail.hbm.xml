@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-6-11 21:15:16 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.lzs.gmsd.bean.OrderDetail" table="order_detail">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="native" />
+        </id>
+        <property name="faultDesc" type="java.lang.String">
+            <column name="fault_desc" />
+        </property>
+        <property name="indoorTime" type="java.lang.String">
+            <column name="indoor_time" />
+        </property>
+        <property name="address" type="java.lang.String">
+            <column name="address" />
+        </property>
+        <property name="mobile" type="java.lang.String">
+            <column name="phone" />
+        </property>
+        <property name="repairDesc" type="java.lang.String">
+            <column name="repair_desc" />
+        </property>
+        <property name="comment" type="java.lang.String">
+            <column name="comment" />
+        </property>
+        <property name="score" type="int">
+            <column name="score" />
+        </property>
+    </class>
+</hibernate-mapping>

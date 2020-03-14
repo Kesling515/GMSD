@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-6-11 21:15:16 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.lzs.gmsd.bean.Order" table="order_main">
+        <id name="orderNo" type="java.lang.String">
+            <column name="order_no" />
+            <generator class="assigned" />
+        </id>
+        <property name="createTime" type="java.util.Date">
+            <column name="create_time" />
+        </property>
+        <property name="state" type="int">
+            <column name="state" />
+        </property>
+        <property name="assignTime" type="java.util.Date">
+            <column name="assign_time" />
+        </property>
+        <property name="finishTime" type="java.util.Date">
+            <column name="finish_time" />
+        </property>
+        <many-to-one name="orderType" class="com.lzs.gmsd.bean.OrderType" fetch="join" lazy="false">
+            <column name="order_type" unique="true" />
+        </many-to-one>
+        <many-to-one name="creater" class="com.lzs.gmsd.bean.UserInfo" fetch="join" lazy="false">
+            <column name="creater_id" unique="true" />
+        </many-to-one>
+        <many-to-one name="repairer" class="com.lzs.gmsd.bean.UserInfo" fetch="join" lazy="false">
+            <column name="repairer_id" unique="true" />
+        </many-to-one>
+        <many-to-one name="detail" class="com.lzs.gmsd.bean.OrderDetail" fetch="join" lazy="false">
+            <column name="detail_id" unique="true" />
+        </many-to-one>
+    </class>
+    
+    <query name="getByOno">
+		<![CDATA[ 
+			from Order where orderNo = ? 
+		]]>
+	</query> 
+	<query name="normalUserOrders">
+		<![CDATA[ 
+			from Order where creater.id = ? 
+		]]>
+	</query>
+	<query name="workerOrders">
+		<![CDATA[ 
+			from Order where repairer.id = ? 
+		]]>
+	</query>
+    
+</hibernate-mapping>

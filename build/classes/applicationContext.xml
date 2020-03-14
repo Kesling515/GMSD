@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- =============== 配置连接池 =================== -->
+	<!-- 定义数据源的信息 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass">
+			<value>com.mysql.cj.jdbc.Driver</value>
+		</property>
+		<property name="jdbcUrl">
+			<value>jdbc:mysql:///gmsd?useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF8&amp;serverTimezone=GMT</value>
+		</property>
+		<property name="user">
+			<value>root</value>
+		</property>
+		<property name="password">
+			<value>root</value> 
+		</property>
+		<property name="maxPoolSize">
+			<value>80</value>
+		</property>
+		<property name="minPoolSize">
+			<value>1</value>
+		</property>
+		<property name="initialPoolSize">
+			<value>1</value>
+		</property>
+		<property name="maxIdleTime">
+			<value>20</value>
+		</property>
+	</bean>
+
+
+	<!-- ========Hibernate:配置SessionFactory=========== -->
+	<!-- SessionFactory使用的数据源为上面的数据源 -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<!-- 注入连接池 -->
+		<property name="dataSource">
+			<ref local="dataSource" />
+		</property>
+		<!-- 指定了Hibernate的映射文件和配置信息 -->
+		<property name="mappingResources">
+			<list>
+				<value>com/lzs/gmsd/bean/User.hbm.xml</value>
+				<value>com/lzs/gmsd/bean/UserInfo.hbm.xml</value>
+				<value>com/lzs/gmsd/bean/Role.hbm.xml</value>
+				<value>com/lzs/gmsd/bean/Order.hbm.xml</value>
+				<value>com/lzs/gmsd/bean/OrderDetail.hbm.xml</value>
+				<value>com/lzs/gmsd/bean/OrderType.hbm.xml</value>
+				<value>com/lzs/gmsd/bean/Help.hbm.xml</value>
+				<value>com/lzs/gmsd/bean/Stat.hbm.xml</value>
+				<value>com/lzs/gmsd/bean/Announcement.hbm.xml</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="show_sql">true</prop>
+				<prop key="hibernate.jdbc.batch_size">20</prop>
+			</props>
+		</property>
+	</bean>
+	
+	
+	<!-- ==============配置Spring 的声明式事务 =============== -->
+	<!-- hibernate事务管理器  -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	
+	<!-- ==============配置Dao=============== -->
+	<!-- dao层的bean -->
+	<bean id="userDao" class="com.lzs.gmsd.dao.impl.UserDao" scope="prototype">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="userInfoDao" class="com.lzs.gmsd.dao.impl.UserInfoDao" scope="prototype">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="roleDao" class="com.lzs.gmsd.dao.impl.RoleDao" scope="prototype">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="orderDao" class="com.lzs.gmsd.dao.impl.OrderDao" scope="prototype">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="orderDetailDao" class="com.lzs.gmsd.dao.impl.OrderDetailDao" scope="prototype">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>	
+	<bean id="orderTypeDao" class="com.lzs.gmsd.dao.impl.OrderTypeDao" scope="prototype">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="helpDao" class="com.lzs.gmsd.dao.impl.HelpDao" scope="prototype">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="statDao" class="com.lzs.gmsd.dao.impl.StatDao" scope="prototype">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="announcementDao" class="com.lzs.gmsd.dao.impl.AnnouncementDao" scope="prototype">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	
+	
+	<!-- ==============配置service=========== -->
+	<!-- 用户注册业务逻辑类 -->
+	<bean id="userService" class="com.lzs.gmsd.service.impl.UserServiceImpl">
+		<property name="userDao">
+			<ref bean="userDao" />
+		</property>
+	</bean>
+	<bean id="userInfoService" class="com.lzs.gmsd.service.impl.UserInfoServiceImpl">
+		<property name="userInfoDao">
+			<ref bean="userInfoDao" />
+		</property>
+	</bean>
+	<bean id="roleService" class="com.lzs.gmsd.service.impl.RoleServiceImpl">
+		<property name="roleDao">
+			<ref bean="roleDao" />
+		</property>
+	</bean>
+	<bean id="orderService" class="com.lzs.gmsd.service.impl.OrderServiceImpl">
+		<property name="orderDao">
+			<ref bean="orderDao" />
+		</property>
+		<property name="userInfoDao">
+			<ref bean="userInfoDao" />
+		</property>
+	</bean>	
+	<bean id="orderDetailService" class="com.lzs.gmsd.service.impl.OrderDetailServiceImpl">
+		<property name="orderDetailDao">
+			<ref bean="orderDetailDao" />
+		</property>
+	</bean>
+	<bean id="orderTypeService" class="com.lzs.gmsd.service.impl.OrderTypeServiceImpl">
+		<property name="orderTypeDao">
+			<ref bean="orderTypeDao" />
+		</property>
+	</bean>
+	<bean id="helpService" class="com.lzs.gmsd.service.impl.HelpServiceImpl">
+		<property name="helpDao">
+			<ref bean="helpDao" />
+		</property>
+	</bean>
+	<bean id="statService" class="com.lzs.gmsd.service.impl.StatServiceImpl">
+		<property name="statDao">
+			<ref bean="statDao" />
+		</property>
+	</bean>
+	<bean id="announcementService" class="com.lzs.gmsd.service.impl.AnnouncementServiceImpl">
+		<property name="announcementDao">
+			<ref bean="announcementDao" />
+		</property>
+	</bean>
+	
+	
+	
+	<!-- ==============配置Action============ -->
+	<bean id="userAction" class="com.lzs.gmsd.action.UserAction">
+		<property name="userService">
+			<ref bean="userService" />
+		</property>
+		<property name="userInfoService">
+			<ref bean="userInfoService" />
+		</property>
+		<property name="roleService">
+			<ref bean="roleService" />
+		</property>
+	</bean>
+	<bean id="orderAction" class="com.lzs.gmsd.action.OrderAction">
+		<property name="orderService">
+			<ref bean="orderService" />
+		</property>
+		<property name="orderDetailService">
+			<ref bean="orderDetailService" />
+		</property>
+		<property name="orderTypeService">
+			<ref bean="orderTypeService" />
+		</property>
+		<property name="roleService">
+			<ref bean="roleService" />
+		</property>		
+		<property name="userService">
+			<ref bean="userService" />
+		</property>		
+		<property name="userInfoService">
+			<ref bean="userInfoService" />
+		</property>
+	</bean>
+	<bean id="helpAction" class="com.lzs.gmsd.action.HelpAction">
+		<property name="helpService">
+			<ref bean="helpService" />
+		</property>
+	</bean>
+	<bean id="statAction" class="com.lzs.gmsd.action.StatAction">
+		<property name="statService">
+			<ref bean="statService" />
+		</property>
+		<property name="userService">
+			<ref bean="userService" />
+		</property>
+		<property name="userInfoService">
+			<ref bean="userInfoService" />
+		</property>	
+	</bean>
+	<bean id="announcementAction" class="com.lzs.gmsd.action.AnnouncementAction">
+		<property name="announcementService">
+			<ref bean="announcementService" />
+		</property>
+	</bean>
+
+</beans>

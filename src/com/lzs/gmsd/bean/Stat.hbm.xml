@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-6-20 14:14:53 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.lzs.gmsd.bean.Stat" table="stat">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="native" />
+        </id>
+        <property name="value" type="int">
+            <column name="value" />
+        </property>
+        <property name="workerId" type="int">
+            <column name="work_id" />
+        </property>
+        <property name="date" type="java.lang.String">
+            <column name="date" />
+        </property>
+    </class>
+</hibernate-mapping>

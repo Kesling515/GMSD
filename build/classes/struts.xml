@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<include file="struts-default.xml" />
+	<constant name="struts.serve.static.browserCache" value="false" />
+	<constant name="struts.configuration.xml.reload" value="true" />
+	
+	<package name="lzs" extends="struts-default,json-default">
+		
+		<!-- ============action配置============ -->
+		<!-- 登录退出操作 -->
+		<action name="login" class="com.lzs.gmsd.action.UserAction">
+			<result type="redirect">/page/login.jsp</result>
+		</action>
+		<action name="logout" class="userAction" method="logout">
+			<result name="success" type="redirect">login.action</result>
+		</action>
+		<action name="user-login" class="userAction" method="login">
+			<result name="json" type="json">
+		         <param name="root">jsonResult</param>
+		    </result>
+		</action>
+		<action name="user-index" class="userAction" method="index">
+			<result name="success">/page/index.jsp</result>
+		</action>
+		
+		<!-- 用户信息 -->
+		<action name="user-info" class="userAction" method="info">
+			<result name="success">/page/userinfo.jsp</result>
+		</action>
+		<action name="user-upinfo" class="userAction" method="upinfo">
+			<result name="json" type="json">
+		         <param name="root">jsonResult</param>
+		    </result>
+		</action>
+		<action name="user-edit" class="userAction" method="edit">
+			<result name="json" type="json">
+		         <param name="root">jsonResult</param>
+		    </result>
+		</action>
+		
+		<!-- 修改密码 -->
+		<action name="user-password" class="userAction" method="password">
+			<result name="success">/page/userpassword.jsp</result>
+		</action>		
+		<action name="user-change-pwd" class="userAction" method="changePwd">
+			<result name="json" type="json">
+		         <param name="root">jsonResult</param>
+		    </result>
+		</action>
+		
+		<!-- 用户管理 -->
+		<action name="user-lists" class="userAction" method="lists">
+			<result name="success">/page/userlists.jsp</result>
+		</action>
+		<action name="user-delete" class="userAction" method="delete">
+			<result name="json" type="json">
+		         <param name="root">jsonResult</param>
+		    </result>
+		</action>
+		<action name="user-add" class="userAction" method="add">
+			<result name="json" type="json">
+		         <param name="root">jsonResult</param>
+		    </result>
+		</action>
+		
+		<!-- 报账单 -->
+		<action name="order-lists" class="orderAction" method="lists">
+			<result name="success">/page/orderlists.jsp</result>
+		</action>
+		<action name="order-normal" class="orderAction" method="normal">
+			<result name="success">/page/ordernormal.jsp</result>
+		</action>
+		<action name="order-add" class="orderAction" method="add">
+			<result name="json" type="json">
+		         <param name="root">jsonResult</param>
+		    </result>
+		</action>
+		<action name="order-cancel" class="orderAction" method="cancel">
+			<result name="json" type="json">
+		         <param name="root">jsonResult</param>
+		    </result>
+		</action>
+		<action name="order-evaluation" class="orderAction" method="evaluation">
+			<result name="json" type="json">
+		         <param name="root">jsonResult</param>
+		    </result>
+		</action>
+		<action name="order-cancel-by-admin" class="orderAction" method="cancelByAdmin">
+			<result name="json" type="json">
+		         <param name="root">jsonResult</param>
+		    </result>
+		</action>
+		<action name="order-assign" class="orderAction" method="assign">
+			<result name="json" type="json">
+		         <param name="root">jsonResult</param>
+		    </result>
+		</action>
+		<action name="order-worker" class="orderAction" method="worker">
+			<result name="success">/page/orderworker.jsp</result>
+		</action>
+		<action name="order-finish" class="orderAction" method="finish">
+			<result name="json" type="json">
+		         <param name="root">jsonResult</param>
+		    </result>
+		</action>
+		
+		<!-- 自助查询 -->
+		<action name="help-lists" class="helpAction" method="helplists">
+			<result name="success">/page/helplists.jsp</result>
+		</action>
+		<action name="help-add" class="helpAction" method="helpAdd">
+			<result name="json" type="json">
+		         <param name="root">jsonResult</param>
+		    </result>
+		</action>
+		<action name="help-edit" class="helpAction" method="helpEdit">
+			<result name="json" type="json">
+		         <param name="root">jsonResult</param>
+		    </result>
+		</action>
+		<action name="help-delete" class="helpAction" method="helpDelete">
+			<result name="json" type="json">
+		         <param name="root">jsonResult</param>
+		    </result>
+		</action>
+		
+		<!-- 报表查询 -->
+		<action name="stat-run" class="statAction" method="run">
+			<result name="json" type="json">
+		         <param name="root">jsonResult</param>
+		    </result>
+		</action>
+		<action name="stat-chart" class="statAction" method="chart">
+			<result name="success">/page/chart.jsp</result>
+		</action>
+		<action name="stat-updatetoday" class="statAction" method="updatetoday">
+			<result name="success">/page/chart.jsp</result>
+		</action>
+		<action name="stat-inputs" class="statAction" method="inputs">
+			<result name="json">/page/chart.js</result>
+		</action>
+		
+		<!-- 公告管理  -->
+		<action name="announcement-list" class="announcementAction" method="announcementlist">
+			<result name="success">/page/announcementlist.jsp</result>
+		</action>
+		<action name="announcement-delete" class="announcementAction" method="announcementDelete">
+			<result name="json" type="json">
+		         <param name="root">jsonResult</param>
+		    </result>
+		</action>
+		<action name="announcement-add" class="announcementAction" method="announcementAdd">
+			<result name="success" type="redirect">/page/announcementadd.jsp</result>
+		</action>
+		<action name="announcement-show" class="announcementAction" method="announcementShow">
+			<result name="success">/page/announcementshow.jsp</result>
+		</action>
+
+	</package>
+</struts>
